@@ -1,0 +1,15 @@
+baseDamage = basicBaseDamage + (atk * atkScaling) + (def * defScaling) + (hp * hpScaling) + (em * emScaling)
+//if character has no scaling for respective stat, the scaling variable will be set to 0
+//eg. Alhaitham uses atk and em, Zhongli uses atk and hp
+
+finalBaseDamage = baseDamage + bonusBaseDamage
+//bonus base damage is like Clorinde passive, Sigewinne passive, Shenhe skill etc
+
+critMultiplier = 1 + critDamage
+//1 is the non-crit damage, when you crit, its non-crit damage + bonus crit damage, because if you dont add the 1, you do 0 damage(literally） if you dont crit
+
+finalCritMultiplier = critChance * critMultiplier + 1 - critChance
+//If your critrate is 70% and your crit damage is 140%, u have 70% chance to do 2.4x the damage, final multiplier is approx 1.98 
+//Calculating in 10 hits: (1 + 1 + 1 + 2.4 + 2.4 + 2.4 + 2.4 + 2.4 + 2.4 + 2.4)/10 = 1.98
+
+finalDamage = finalBaseDamage * finalDamageBonus * finalDefMultiplier * finalResMultiplier * finalAmplifyingMultiplier * finalCritMultiplier
